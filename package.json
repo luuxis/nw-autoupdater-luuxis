@@ -13,6 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "git push && git push --tags"
   },
+  "manifestUrl": "http://127.0.0.1:8080/package.json",
   "author": "Dmitry Sheiko <me@dsheiko.com>",
   "license": "MIT",
   "dependencies": {
