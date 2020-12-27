@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "nw-autoupdater",
+  "name": "nw-autoupdater-luuxis",
   "description": "Library provides low-level API to control NW.js app auto-updates",
   "keywords": [
     "nwjs",
