@@ -41,7 +41,7 @@ class AutoUpdater extends EventEmitter {
     super();
 
     this.manifest = manifest;
-    if ( !this.manifest.manifestUrl ) {
+    if ( !this.manifest ) {
       throw new Error( `Manifest must contain manifestUrl field` );
     }
 
@@ -62,9 +62,9 @@ class AutoUpdater extends EventEmitter {
    */
   async readRemoteManifest(){
     try {
-      return await readJson( this.manifest.manifestUrl );
+      return await readJson( this.manifest );
     } catch ( e ) {
-      throw new Error( `Cannot read remote manifest from ${this.manifest.manifestUrl}` );
+      throw new Error( `Cannot read remote manifest from ${this.manifest}` );
     }
   }
   /**
