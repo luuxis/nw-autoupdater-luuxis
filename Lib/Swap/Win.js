@@ -19,7 +19,7 @@ SET verbose=%~5
 `rmdir "%backupDir%" /s /q
 robocopy "%updateDir%" "%execDir%" /mir
 
-"%execDir%\\Hariona-Launcher.exe"
+"%execDir%\\%runner%"
 `);
   }
 
