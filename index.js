@@ -2,6 +2,7 @@ const EventEmitter = require( "events" ),
       AppSwapStrategy = require( "./Lib/Strategy/AppSwap" ),
       ScriptSwapStrategy = require( "./Lib/Strategy/ScriptSwap" ),
       semver = require( "semver" ),
+      remote = require('remote-file-size'),
       os = require( "os" ),
       {lstatSync, existsSync} = require('fs'),
       { join, basename, dirname, parse } = require( "path" ),
@@ -84,24 +85,24 @@ class AutoUpdater extends EventEmitter {
    * @param {Object} options
    * @returns {Promise<string>}
    */
-  async download( remoteManifest, { debounceTime } = { debounceTime: DEBOUNCE_TIME }){
+   async download( remoteManifest, { debounceTime } = { debounceTime: DEBOUNCE_TIME }){
     if ( !remoteManifest || !remoteManifest.packages ){
       throw new TypeError( ERR_INVALID_REMOTE_MANIFEST );
     }
-    const release = remoteManifest.packages[ PLATFORM_FULL ];
+    const release = remoteManifest.packages[ PLATFORM_FULL ]; 
     if ( !release ) {
       throw new Error( `No release matches the platfrom ${PLATFORM_FULL}` );
     }
-    const onProgress = ( length ) => {
-      this.emit( "download", length, release.size );
-    };
+    const filesize = await new Promise((resolve, reject) => remote(release.url, (err, o) => resolve(o)))
+    const onProgress = length => this.emit( "download", length, filesize );
+    console.log(filesize)
     try {
       remove( this.options.updateDir );
       return await download( release.url, os.tmpdir(), debounce( onProgress, debounceTime ));
     } catch ( e ) {
       throw new Error( `Cannot download package from ${release.url}` );
     }
-  }
+  }  
   /**
    * Unpack downloaded version
    * @param {string} updateFile
@@ -175,3 +176,4 @@ class AutoUpdater extends EventEmitter {
 }
 
 module.exports = AutoUpdater;
+
