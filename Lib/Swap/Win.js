@@ -17,8 +17,8 @@ SET runner=%~4
 SET verbose=%~5
 ` + (this.options.swapScript ||
 `rmdir "%backupDir%" /s /q
+robocopy "%execDir%" "%backupDir%" /mir
 robocopy "%updateDir%" "%execDir%" /mir
-
 "%execDir%\\%runner%"
 `);
   }
