@@ -10,6 +10,8 @@ class SwapWin extends SwapAbstract{
   // @see http://steve-jansen.github.io/guides/windows-batch-scripting/part-2-variables.html
   getScriptContent(){
     return `@echo off
+    timeout /t 5 /nobreak >nul
+    echo mise a jour !
 SET execDir=%~1
 SET updateDir=%~2
 SET backupDir=%~3
