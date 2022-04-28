@@ -3,3 +3,4 @@ node_modules
 nw-autoupdater*.tgz
 example/server/releases/*.zip
 swap.log
+package-lock.json
